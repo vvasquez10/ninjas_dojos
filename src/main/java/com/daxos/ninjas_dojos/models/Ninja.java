@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-import nonapi.io.github.classgraph.json.Id;
+import org.springframework.format.annotation.DateTimeFormat;
+
 
 @Entity
 @Table(name="ninjas")
@@ -21,7 +23,7 @@ public class Ninja {
 	
 	@Id	
 	@GeneratedValue( strategy = GenerationType.IDENTITY )
-	private long id;
+	private long ninja_id;
 	
 	@NotNull
 	@NotEmpty
@@ -31,38 +33,38 @@ public class Ninja {
 	@NotEmpty
 	private String last_name;	
 	
-	@NotNull
-	@NotEmpty
+	@NotNull	
 	private int age;
 	
 	@Column(updatable=false)
+	@DateTimeFormat (pattern = "yyyy-MM-dd")
     private Date createdAt;
+	
     private Date updatedAt;
 	
+    @NotNull (message = "Escoga un dojo")
 	@ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="id")	
+    @JoinColumn(name="dojo_id")	
 	private Dojo dojo;
 	
 	public Ninja() {
 	}
 
-	public Ninja(long id, String first_name, String last_name,
-			int age, Date createdAt, Date updatedAt, Dojo dojo) {
-		this.id = id;
+	public Ninja(long ninja_id, String first_name, String last_name, int age, Date createdAt, Date updatedAt) {
+		this.ninja_id = ninja_id;
 		this.first_name = first_name;
 		this.last_name = last_name;
 		this.age = age;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.dojo = dojo;
 	}
 
 	public long getId() {
-		return id;
+		return ninja_id;
 	}
 
 	public void setId(long id) {
-		this.id = id;
+		this.ninja_id = id;
 	}
 
 	public String getFirst_name() {

@@ -17,7 +17,17 @@
 	</head>
 	<body>
 		<h1>New Ninja</h1>
-		<form:form action="/dojos/createNinja" method="POST" modelAttribute="ninja">
+		<form:form action="/ninjas/createNinja" method="POST" modelAttribute="ninja">
+			<div>
+			<form:label path="dojo" for="dojo">Pick a dojo:</form:label>
+            <form:select class="custom-select" path="dojo" name="dojo" id="dojo">
+             	<c:forEach items="${allDojos}" var="variable">
+					<option value="${variable.dojo_id}">${variable.name}</option>          
+				</c:forEach>
+             </form:select>
+             <form:errors path="dojo"/>             
+            </div>
+            
 			<form:label path="first_name" for="first_name">First Name:</form:label>
 			<form:input path="first_name" class="form-control" type="text" name="first_name" id="first_name" required="True"/>
 			<form:errors path="first_name"/>
